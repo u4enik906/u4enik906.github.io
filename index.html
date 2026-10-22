@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция: Автозаполнение журнала МЭШ</title>
+    <!-- Подключение Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .step-number { 
+            background-color: #0d6efd; color: white; width: 30px; height: 30px; 
+            border-radius: 50%; display: inline-flex; align-items: center; 
+            justify-content: center; font-weight: bold; margin-right: 10px; 
+        }
+        .code-block { background-color: #212529; color: #00ff00; padding: 15px; border-radius: 5px; font-family: monospace; }
+        .warning-box { border-left: 5px solid #dc3545; background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">🤖 Автопомощник для журнала МЭШ</h1>
+        <p class="lead text-muted">Простая инструкция по автоматической простановке «учебных умений»</p>
+
+        <a href="./run_journal.py" class="btn btn-success btn-lg mt-3">📥 Скачать скрипт</a>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="alert alert-info" role="alert">
+
+                <h4>Скрипт ставит преимущественно высокие оценки («Часто» и «Почти всегда»), реже выбирает "Затрудняюсь ответить".</h4>
+
+            </div>
+
+
+            <!-- Шаг 1 -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="step-number">1</span> Установка (делается один раз)</h4>
+                    <p>Если вы уже устанавливали Python и библиотеки, переходите к шагу 2.</p>
+                    <ol>
+                        <li>Скачайте и установите <a href="https://www.python.org/downloads/" target="_blank">Python</a>. <br>
+                        <span class="text-danger fw-bold">ВАЖНО:</span> При установке обязательно поставьте галочку <strong>"Add Python.exe to PATH"</strong> (внизу окна установщика)!</li>
+                        <li>Нажмите на клавиатуре <code>Win + R</code>, введите <code>cmd</code> и нажмите Enter.</li>
+                        <li>В черном окне введите по очереди эти две команды, нажимая Enter после каждой и дожидаясь окончания установки:
+                            <div class="code-block mt-2">pip install playwright<br>playwright install</div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Шаг 2 -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="step-number">2</span> Подготовка браузера Chrome</h4>
+                    <ol>
+                        <li><strong>Полностью закройте браузер Google Chrome.</strong> Убедитесь, что он не висит в трее (возле часов).</li>
+                        <li>Снова нажмите <code>Win + R</code>, введите <code>cmd</code> и нажмите Enter.</li>
+                        <li>Скопируйте и вставьте в черное окно эту команду целиком, затем нажмите Enter:
+                            <div class="code-block mt-2">"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="C:\ChromeDebug"</div>
+                        </li>
+                        <li>Откроется новое, "чистое" окно Chrome. Войдите в свой аккаунт на mos.ru и откройте один свой журнал МЭШ.</li>
+                        <li><span class="text-danger fw-bold">Закройте все лишние вкладки!</span> Оставьте только одну вкладку с журналом того класса, с которого хотите начать.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Шаг 3 -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="step-number">3</span> Запуск скрипта</h4>
+                    <ol>
+                        <li>Откройте папку, куда вы распаковали скачанный архив.</li>
+                        <li>В адресной строке этой папки (сверху, где написан путь) сотрите всё, введите <code>cmd</code> и нажмите Enter. Откроется черное окно, уже настроенное на эту папку.</li>
+                        <li>Введите команду для запуска:
+                            <div class="code-block mt-2">python run_journal.py</div>
+                        </li>
+                        <li>Скрипт напишет <em>"Connecting to live Chrome window..."</em>. Если всё сделано верно, он подключится к вашему журналу.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Важные правила -->
+            <div class="alert warning-box mb-4" role="alert">
+                <h5 class="alert-heading">⚠️ Золотые правила:</h5>
+                <ol class="mb-0">
+                    <li>В браузере Chrome должна быть открыта <strong>ТОЛЬКО ОДНА вкладка</strong> с нужным журналом. Закройте все остальные!</li>
+                    <li>Желательно обрабатывать <strong>один предмет за раз</strong>. Если нужно заполнить "Информатику" и "Программирование", запустите скрипт дважды, вводя разные названия.</li>
+                    <li>Скрипт <strong>не переключает классы сам</strong>. Когда он закончит текущий журнал, откройте в браузере следующий класс вручную и нажмите <code>Enter</code> в черном окне.</li>
+                </ol>
+            </div>
+
+            <!-- Шаг 4 -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="step-number">4</span> Процесс работы</h4>
+                    <ol>
+                        <li>Скрипт спросит: <em>"Enter subject keywords [Default: Информатика]:"</em>. Введите точное название предмета (например, <code>Информатика</code> или <code>Практикум ЕГЭ по информатике</code>) и нажмите Enter.</li>
+                        <li>Скрипт попросит: <em>"Navigate to your first journal tab, then press [Enter] to start"</em>. Убедитесь, что в браузере открыт нужный журнал, и нажмите Enter.</li>
+                        <li>Наблюдайте, как скрипт сам открывает карточки учеников и проставляет оценки. <br>
+                        <small class="text-muted"><em>Примечание: Скрипт ставит преимущественно высокие оценки («Часто» и «Почти всегда»), реже выбирает "Затрудняюсь ответить".</em></small></li>
+                        <li>Когда текущий журнал закончится, скрипт напишет <em>"Auto-advance paused"</em>.</li>
+                        <li><strong>Ваши действия:</strong> Откройте в браузере следующий журнал (следующий класс или группу), вернитесь в черное окно и нажмите Enter. Скрипт продолжит работу.</li>
+                        <li>Чтобы полностью завершить работу, нажмите клавишу <code>q</code> и Enter.</li>
+                    </ol>
+                </div>
+            </div>
+
+
+
+            <!-- Частые проблемы -->
+            <div class="card border-warning mb-4">
+                <div class="card-header bg-warning text-dark fw-bold">❓ Что делать, если что-то пошло не так?</div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        <li><strong>Скрипт пишет "Found 0 new students":</strong> Скорее всего, у вас открыто несколько вкладок в Chrome, или вы ввели название предмета с ошибкой. Закройте всё, оставьте одну вкладку, перезапустите скрипт.</li>
+                        <li><strong>Скрипт завис или перестал нажимать "Сохранить":</strong> МЭШ мог показать капчу или разорвать сессию. Просто обновите страницу в браузере (F5), убедитесь, что вы в системе, и нажмите Enter в черном окне, чтобы скрипт продолжил.</li>
+                        <li><strong>Ошибка "ModuleNotFoundError":</strong> Вы не поставили галочку "Add Python to PATH" при установке Python. Переустановите Python, поставив эту галочку.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer class="text-center text-muted mt-5">
+        <p>Инструкция подготовлена для внутреннего использования. Используйте с умом!</p>
+        <p class="lead text-muted">Автор не известен</p>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
